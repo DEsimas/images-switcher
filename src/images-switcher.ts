@@ -1,8 +1,9 @@
 import { Message, ReactionCollector } from "discord.js";
+import { Image } from "./types";
 
 export class ImagesSwitcher {
     private readonly message: Message;
-    private readonly images: Array<any>;
+    private readonly images: Array<Image>;
     private readonly botID: string;
 
     private readonly getMessage: Function;
