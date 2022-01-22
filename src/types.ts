@@ -1,4 +1,4 @@
-import { MessageOptions } from "discord.js";
+import { MessageOptions, Message } from "discord.js";
 
 /**
  * One of the switchable images
@@ -16,4 +16,23 @@ export interface Image {
  * @param iterator Position for current image
  * @param payload Custom user data
  */
-export type GetMessage = (images: Array<Image>, iterator: number, payload: any) => MessageOptions
+export type GetMessage = (images: Array<Image>, iterator: number, payload: any) => MessageOptions;
+
+
+/**
+ * Data that should be passet to the ImagesSwitcher constructor
+ * @param message Message with images
+ * @param images Array of images to swich
+ * @param botID Id of the bot for filtering it's reactions
+ * @param getMessage Function that returns new message, according to the iterator value
+ * @param lifetime Time in milliseconds during which the switcher will work
+ * @param payload Custom data, will be availible from getMessage function
+ */
+export interface SwitcherOptions {
+    message: Message;
+    images: Array<Image>;
+    botID: string;
+    getMessage?: GetMessage;
+    lifetime?: number;
+    payload?: any;
+};
