@@ -31,6 +31,12 @@ export class ImagesSwitcher {
             (reaction, user) => (this.filter(reaction, user)),
             { time: this.lifetime }
         );
+
+        this.setReactions().then(() => {
+            this.collector.on("collect", (reaction: MessageReaction, user: User) => {});
+            this.collector.on("remove", (reaction: MessageReaction, user: User) => {});
+            this.collector.on("end", () => {});
+        })
     }
 
     private async DefaultGetMessage(images: Array<Image>, iterator: number, payload: any): Promise<MessageOptions> {
@@ -42,5 +48,11 @@ export class ImagesSwitcher {
             reaction.emoji.name === this.prevReaction ||
             reaction.emoji.name === this.stopReaction) &&
             user.id != this.botID;
+    }
+
+    private async setReactions(): Promise<void> {
+        await this.message.react(this.prevReaction);
+        await this.message.react(this.stopReaction);
+        await this.message.react(this.nextReaction);
     }
 };
