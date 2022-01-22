@@ -1,12 +1,42 @@
 {
-  "name": "images-switcher",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+    "name": "images-switcher",
+    "version": "1.0.0",
+    "description": "Library for discord bots. Creates message with changeable embed image",
+    "keywords": [
+        "typescript",
+        "discord",
+        "discordjs",
+        "discordbot"
+    ],
+    "homepage": "https://www.npmjs.com/package/images-switcher",
+    "bugs": {
+        "url": "https://github.com/DEsimas/images-switcher/issues",
+        "email": "simasuh@gmail.com"
+    },
+    "license": "ISC",
+    "author": {
+        "name": "Serafim Sukharev",
+        "email": "simasuh@gmail.com"
+    },
+    "files": [
+        "dist/**/*"
+    ],
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DEsimas/images-switcher"
+    },
+    "scripts": {
+        "build": "npx tsc",
+        "deploy": "npm run build && npm pack && npm publish",
+        "test": "npm run build && npm pack && npm link"
+    },
+    "dependencies": {
+        "discord.js": "^13.3.1"
+    },
+    "devDependencies": {
+        "typescript": "^4.5.2"
+    },
+    "private": false
 }
