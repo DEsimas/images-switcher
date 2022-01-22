@@ -1,4 +1,4 @@
-import { Message, ReactionCollector, MessageOptions } from "discord.js";
+import { Message, ReactionCollector, MessageOptions, MessageReaction, User } from "discord.js";
 import { GetMessage, Image, SwitcherOptions } from "./types";
 
 export class ImagesSwitcher {
@@ -26,9 +26,21 @@ export class ImagesSwitcher {
         this.getMessage = options.getMessage || this.DefaultGetMessage;
         this.lifetime = options.lifetime || 1000*60*60*12;
         this.payload = options.payload;
+
+        this.collector = this.message.createReactionCollector(
+            (reaction, user) => (this.filter(reaction, user)),
+            { time: this.lifetime }
+        );
     }
 
     private async DefaultGetMessage(images: Array<Image>, iterator: number, payload: any): Promise<MessageOptions> {
         return {};
+    }
+
+    private filter(reaction: MessageReaction, user: User): boolean {
+        return (reaction.emoji.name === this.nextReaction ||
+            reaction.emoji.name === this.prevReaction ||
+            reaction.emoji.name === this.stopReaction) &&
+            user.id != this.botID;
     }
 };
