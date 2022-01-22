@@ -1,1 +1,2 @@
-console.log("Hello world!");
+import { ImagesSwitcher } from "./images-switcher";
+export { ImagesSwitcher };
