@@ -16,7 +16,7 @@ export interface Image {
  * @param iterator Position for current image
  * @param payload Custom user data
  */
-export type GetMessage = (images: Array<Image>, iterator: number, payload: any) => MessageOptions;
+export type GetMessage = (images: Array<Image>, iterator: number, payload: any) => Promise<MessageOptions>;
 
 
 /**
