@@ -35,7 +35,7 @@ export class ImagesSwitcher {
         this.setReactions().then(() => {
             this.collector.on("collect", (reaction: MessageReaction, user: User) => (this.handleReaction(reaction, user)));
             this.collector.on("remove", (reaction: MessageReaction, user: User) => (this.handleReaction(reaction, user)));
-            this.collector.on("end", () => {});
+            this.collector.on("end", () => (this.end()));
         })
     }
 
@@ -67,7 +67,7 @@ export class ImagesSwitcher {
                 this.updateImage();
             break;
             case this.stopReaction:
-                
+                this.end();
             break;
         }
     }
@@ -84,6 +84,10 @@ export class ImagesSwitcher {
             this.iterator--;
             this.updateImage();
         }
+    }
+
+    private end(): void {
+        if(this.message.deletable) this.message.delete();
     }
 
     private async updateImage(): Promise<void> {
