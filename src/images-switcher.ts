@@ -33,8 +33,8 @@ export class ImagesSwitcher {
         );
 
         this.setReactions().then(() => {
-            this.collector.on("collect", (reaction: MessageReaction, user: User) => {});
-            this.collector.on("remove", (reaction: MessageReaction, user: User) => {});
+            this.collector.on("collect", (reaction: MessageReaction, user: User) => (this.handleReaction(reaction, user)));
+            this.collector.on("remove", (reaction: MessageReaction, user: User) => (this.handleReaction(reaction, user)));
             this.collector.on("end", () => {});
         })
     }
@@ -54,5 +54,39 @@ export class ImagesSwitcher {
         await this.message.react(this.prevReaction);
         await this.message.react(this.stopReaction);
         await this.message.react(this.nextReaction);
+    }
+
+    private handleReaction(reaction: MessageReaction, user: User) {
+        switch(reaction.emoji.name) {
+            case this.nextReaction:
+                this.next();
+                this.updateImage();
+            break;
+            case this.prevReaction:
+                this.prev();
+                this.updateImage();
+            break;
+            case this.stopReaction:
+                
+            break;
+        }
+    }
+
+    private next(): void {
+        if(this.iterator !== this.images.length-1){
+            this.iterator++;
+            this.updateImage();
+        }
+    }
+
+    private prev(): void {
+        if(this.iterator !== 0) {
+            this.iterator--;
+            this.updateImage();
+        }
+    }
+
+    private async updateImage(): Promise<void> {
+        this.message.edit(await this.getMessage(this.images, this.iterator, this.payload));
     }
 };
