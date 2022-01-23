@@ -1,2 +1,3 @@
 import { ImagesSwitcher } from "./images-switcher";
-export { ImagesSwitcher };
+import { Image, GetMessage, SwitcherOptions } from "./types";
+export { ImagesSwitcher, Image, GetMessage, SwitcherOptions };
