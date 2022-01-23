@@ -95,21 +95,21 @@ export class ImagesSwitcher {
         }
     }
 
-    private next(): void {
+    public next(): void {
         if(this.iterator !== this.images.length-1){
             this.iterator++;
             this.updateImage();
         }
     }
 
-    private prev(): void {
+    public prev(): void {
         if(this.iterator !== 0) {
             this.iterator--;
             this.updateImage();
         }
     }
 
-    private end(): void {
+    public end(): void {
         if(this.message.deletable) this.message.delete();
     }
 
