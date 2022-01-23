@@ -9,6 +9,7 @@ export class ImagesSwitcher {
     private readonly getMessage: GetMessage;
     private readonly lifetime: number;
     private readonly payload: any;
+    private readonly users: string[]
 
     private readonly collector: ReactionCollector;
 
@@ -26,6 +27,7 @@ export class ImagesSwitcher {
         this.getMessage = options.getMessage || this.DefaultGetMessage;
         this.lifetime = options.lifetime || 1000*60*60*12;
         this.payload = options.payload;
+        this.users = options?.users || [];
 
         this.collector = this.message.createReactionCollector({
             dispose: true,
@@ -42,7 +44,6 @@ export class ImagesSwitcher {
     }
 
     private async DefaultGetMessage(images: Array<Image>, iterator: number, payload: any): Promise<MessageOptions> {
-        
         const embed = new MessageEmbed()
             .setTitle(`${iterator+1}/${images.length}`)
             .setImage(images[iterator].url);
@@ -53,7 +54,8 @@ export class ImagesSwitcher {
         return (reaction.emoji.name === this.nextReaction ||
             reaction.emoji.name === this.prevReaction ||
             reaction.emoji.name === this.stopReaction) &&
-            user.id != this.botID;
+            ( this.users.length ? this.users.includes(user.id) : true )
+            && user.id != this.botID;
     }
 
     private async setReactions(): Promise<void> {

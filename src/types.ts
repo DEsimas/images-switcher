@@ -27,6 +27,7 @@ export type GetMessage = (images: Array<Image>, iterator: number, payload: any) 
  * @param getMessage Function that returns new message, according to the iterator value
  * @param lifetime Time in milliseconds during which the switcher will work
  * @param payload Custom data, will be availible from getMessage function
+ * @param users List of users, who can use navigation bar 
  */
 export interface SwitcherOptions {
     message: Message;
@@ -35,4 +36,5 @@ export interface SwitcherOptions {
     getMessage?: GetMessage;
     lifetime?: number;
     payload?: any;
+    users?: string[];
 };
