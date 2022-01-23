@@ -42,7 +42,9 @@ export class ImagesSwitcher {
     }
 
     private async DefaultGetMessage(images: Array<Image>, iterator: number, payload: any): Promise<MessageOptions> {
+        
         const embed = new MessageEmbed()
+            .setTitle(`${iterator+1}/${images.length}`)
             .setImage(images[iterator].url);
         return { content: "Use reactions to navigate through images!", embeds: [embed] };
     }
