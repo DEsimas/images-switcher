@@ -28,6 +28,7 @@ export class ImagesSwitcher {
         this.payload = options.payload;
 
         this.collector = this.message.createReactionCollector({
+            dispose: true,
             filter: (reaction, user) => (this.filter(reaction, user)),
             time: this.lifetime
         });
