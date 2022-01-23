@@ -20,12 +20,12 @@ export type GetMessage = (images: Array<Image>, iterator: number, payload: any) 
 
 
 /**
- * Data that should be passet to the ImagesSwitcher constructor
+ * Data that should be passed to the ImagesSwitcher constructor
  * @param message Message with images
- * @param images Array of images to swich
+ * @param images Array of images to switch
  * @param getMessage Function that returns new message, according to the iterator value
  * @param lifetime Time in milliseconds during which the switcher will work
- * @param payload Custom data, will be availible from getMessage function
+ * @param payload Custom data, will be available from getMessage function
  * @param users List of users, who can use navigation bar 
  */
 export interface SwitcherOptions {
