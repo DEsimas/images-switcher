@@ -23,7 +23,6 @@ export type GetMessage = (images: Array<Image>, iterator: number, payload: any) 
  * Data that should be passet to the ImagesSwitcher constructor
  * @param message Message with images
  * @param images Array of images to swich
- * @param botID Id of the bot for filtering it's reactions
  * @param getMessage Function that returns new message, according to the iterator value
  * @param lifetime Time in milliseconds during which the switcher will work
  * @param payload Custom data, will be availible from getMessage function
@@ -32,7 +31,6 @@ export type GetMessage = (images: Array<Image>, iterator: number, payload: any) 
 export interface SwitcherOptions {
     message: Message;
     images: Array<Image>;
-    botID: string;
     getMessage?: GetMessage;
     lifetime?: number;
     payload?: any;

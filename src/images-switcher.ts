@@ -4,7 +4,6 @@ import { GetMessage, Image, SwitcherOptions } from "./types";
 export class ImagesSwitcher {
     private readonly message: Message;
     private readonly images: Array<Image>;
-    private readonly botID: string;
 
     private readonly getMessage: GetMessage;
     private readonly lifetime: number;
@@ -18,11 +17,11 @@ export class ImagesSwitcher {
     private readonly stopReaction = "🛑";
 
     private iterator: number = 0;
+    private loading: boolean = true;
 
     constructor(options: SwitcherOptions) {
         this.message = options.message;
         this.images = options.images;
-        this.botID = options.botID;
 
         this.getMessage = options.getMessage || this.DefaultGetMessage;
         this.lifetime = options.lifetime || 1000*60*60*12;
@@ -36,6 +35,7 @@ export class ImagesSwitcher {
         });
         
         this.setReactions().then(() => {
+            this.loading = false;
             this.collector.on("collect", (reaction: MessageReaction, user: User) => (this.handleReaction(reaction, user)));
             this.collector.on("remove", (reaction: MessageReaction, user: User) => (this.handleReaction(reaction, user)));
             this.collector.on("end", () => (this.end()));
@@ -70,7 +70,7 @@ export class ImagesSwitcher {
             reaction.emoji.name === this.prevReaction ||
             reaction.emoji.name === this.stopReaction) &&
             ( this.users.length ? this.users.includes(user.id) : true )
-            && user.id != this.botID;
+            && !this.loading;
     }
 
     private async setReactions(): Promise<void> {
