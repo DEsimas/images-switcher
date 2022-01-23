@@ -45,9 +45,24 @@ export class ImagesSwitcher {
 
     private async DefaultGetMessage(images: Array<Image>, iterator: number, payload: any): Promise<MessageOptions> {
         const embed = new MessageEmbed()
-            .setTitle(`${iterator+1}/${images.length}`)
-            .setImage(images[iterator].url);
-        return { content: "Use reactions to navigate through images!", embeds: [embed] };
+        if(this.validateURL(images[iterator].url)) {
+            embed.setTitle(`${iterator+1}/${images.length}`);
+            embed.setImage(images[iterator].url);
+        } else {
+            embed.setTitle(`${iterator+1}/${images.length}\nFailed to load image`);
+        }
+
+        return { content: "Use reactions to navigate through images!", embeds: [embed] }
+    }
+
+    private validateURL(str: string): boolean {
+        var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+            '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+            '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+            '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+            '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+            '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+        return !!pattern.test(str);
     }
 
     private filter(reaction: MessageReaction, user: User): boolean {
