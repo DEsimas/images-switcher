@@ -36,6 +36,7 @@ export class ImagesSwitcher {
             this.collector.on("collect", (reaction: MessageReaction, user: User) => (this.handleReaction(reaction, user)));
             this.collector.on("remove", (reaction: MessageReaction, user: User) => (this.handleReaction(reaction, user)));
             this.collector.on("end", () => (this.end()));
+            this.updateImage();
         });
     }
 
